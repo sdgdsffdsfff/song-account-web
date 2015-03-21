@@ -1,0 +1,24 @@
+.userBindSites {
+	width: 100%;
+}
+
+.userBindSites li {
+	border-bottom: 1px solid #dadada;
+	padding-bottom: 8px;
+}
+
+.userBindSites li p {
+	margin-top: 0px;
+	float: left;
+	height: 65px;
+	padding-right: 28px;
+	line-height: 65px;
+}
+
+.userBindSites li .bind {
+	color: #009900;
+}
+
+.userBindSites li .bp3 {
+	width: 271px;
+}

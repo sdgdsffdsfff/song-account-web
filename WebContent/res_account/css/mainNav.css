@@ -1,0 +1,63 @@
+.main-body {
+	z-index: 10000;
+	width: 100%;
+	background: #f5f5f5;
+	border-bottom: 1px solid #eee;
+	height: 35px;
+}
+
+.main-nav {
+	position: relative;
+	color: #888;
+	line-height: 35px;
+}
+
+.main-nav a {
+	color: #666;
+}
+
+.pm-nav-text {
+	word-spacing: 0.5em;
+	height: 25px;
+}
+
+.user-text-info {
+	position: absolute;
+	top: 0;
+	right: 0;
+}
+
+.user-text-info .text-li {
+	padding: 0 5px;
+	position: relative;
+}
+
+a.text-blue {
+	color: #83c020;
+}
+
+a.text-blue:hover {
+	color: #83c020;
+}
+
+a.text-red {
+	color: red;
+}
+
+.user-img {
+	display: block;
+	float: left;
+	cursor: pointer;
+}
+
+.user-img img {
+	width: 33px;
+	height: 33px;
+}
+
+.user-nick {
+	display: block;
+	float: left;
+	cursor: pointer;
+	margin-left: 6px;
+}

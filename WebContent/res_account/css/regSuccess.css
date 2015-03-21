@@ -1,0 +1,75 @@
+body {
+	background: #f3f3f3;
+}
+
+.win-970 {
+	width: 970px;
+	margin: 0 auto;
+}
+
+.register-main {
+	margin: 35px auto 15px;
+	padding: 34px 48px; 40px 48px;
+	background: white;
+	overflow: hidden;
+	zoom: 1;
+	border-radius: 5px;
+	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.m-up {
+	border-bottom: 1px dashed #ccc;
+	margin-bottom: 10px;
+	padding-bottom: 10px;
+}
+
+.m-u-login {
+	padding: 10px 0;
+}
+
+.m-u-p {
+	color: #999;
+	float: left;
+	padding: 15px 0 0 6px;
+}
+
+.m-bd {
+	font-size: 24px;
+	font-family: Microsoft YaHei;
+}
+
+.register-foot {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.bc_check {
+	float: left;
+	width: 14px;
+	height: 14px;
+	margin: 1px 0 0 0;
+	cursor: pointer;
+}
+
+.bc_lab {
+	float: left;
+	padding: 0 0 0 5px;
+	margin: 1px 0 0 0 9;
+	cursor: pointer;
+}
+
+.bc-dlu {
+	height: 32px;
+	float: left;
+}
+
+.m-down {
+	
+}
+
+.pro-outside {
+	margin-left: 80px;
+	margin-right: 0px;
+}
+

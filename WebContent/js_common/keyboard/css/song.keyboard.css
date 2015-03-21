@@ -1,0 +1,34 @@
+.keyboard-css {
+	margin: 0px;
+	padding: 1px;
+	border: 1px solid #000;
+	width: 160px;
+}
+
+.keyboard-css ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.keyboard-css ul li {
+	float: left;
+}
+
+.keyboard-css ul li a,a:link {
+	text-decoration: none;
+	color: white;
+	font-size: 16px;
+	font-weight: bolder;
+}
+
+.keyboard-css ul li a {
+	display: block;
+	padding: 8px;
+	margin: 1px;
+	background-color: #D14836;
+}
+
+.keyboard-css ul li a:hover {
+	background-color: darkGray;
+}

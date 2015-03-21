@@ -1,0 +1,59 @@
+/* Tables
+---------------------------------------------------------------------*/
+
+table.stylized {
+	border-collapse:collapse;
+	position:relative;
+	margin-top:1em;
+	margin-bottom:1em;
+}
+table.stylized th,table.stylized td {
+	line-height:18px;
+	padding:8px 12px;
+}
+table.stylized th {
+	background-color:#2A7AD2 !important;
+	color:#fff;
+	text-align:left;
+}
+table.stylized tr.high {
+	background-color:#ffa !important;
+}
+table.stylized tbody th,table.stylized tbody td,table.stylized tfoot th,table.stylized tfoot td {
+	border-bottom:solid 1px #eee;
+}
+table.stylized tfoot td {
+	background-color:#f2f2f2 !important;
+	border-bottom:2px solid #ddd;
+}
+table.stylized tr:nth-child(even) td {
+}
+/*table.stylized tbody tr:nth-child(odd) th,table.stylized tbody tr:nth-child(odd) td {
+	background:#FAFDFE;
+}*/
+table.stylized caption {
+	margin-bottom:1em;
+	text-align:left;
+	font-size:11px;
+	text-transform:uppercase;
+}
+table.no-style th,table.no-style td {
+	line-height:18px;
+	padding:4px 8px 4px 0;
+}
+table.no-style td,table.no-style th {
+	background:none !important;
+	color:#666;
+	border-bottom:0 none;
+	border-bottom:1px dotted #ddd !important;
+}
+table.no-style caption {
+	margin-bottom:0;
+	text-align: left;
+}
+/* flot TD */
+td.legendLabel {
+	font-size:11px;
+	padding:0 4px;
+	vertical-align: middle;
+}

@@ -1,0 +1,40 @@
+.userPhotos {
+	margin: 15px;
+}
+
+.userPhotos ul li {
+	float: left;
+	margin: 0px 12px 10px 12px;;
+}
+
+.userPhotos ul li a {
+	display: block;
+	padding: 2px;
+	border: 1px solid #ccc;
+}
+
+.userPhotos ul li a:hover {
+	border: 1px solid #2ba7e8;
+}
+
+.userPhotos ul li a.selected {
+	border: 1px solid red;
+}
+
+.userPhotos .editPhotsBut {
+	margin: 5px 12px 0px 12px;
+}
+
+.userPhotos .editPhotsBut a {
+	text-align: center;
+	display: block;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 110%;
+	position: relative;
+	cursor: pointer;
+	color: #fff !important;
+	border: 1px solid #749217 !important;
+	background-color: #6AB620 !important;
+	padding: 7px 0px;
+}

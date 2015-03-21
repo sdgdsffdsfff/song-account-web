@@ -1,0 +1,96 @@
+.dgbox-wrapper {
+	position: absolute;
+}
+
+.dgbox-wrapper.fixed {
+	position: fixed;
+}
+
+/* Modal */
+.dgbox-modal-blackout {
+	position: absolute;
+	background-color: #333;
+	left: 0;
+	top: 0;
+}
+
+/* Border */
+.dgbox-wrapper {
+	empty-cells: show;
+}
+
+.dgbox-wrapper .top-left,.dgbox-wrapper .top-right,.dgbox-wrapper .bottom-right,.dgbox-wrapper .bottom-left {
+	width: 6px;
+	height: 6px;
+	padding: 0;
+	background-color: #BBB;
+	opacity: 0.7;
+	filter: alpha(opacity = 60);
+}
+
+.dgbox-wrapper .top,.dgbox-wrapper .bottom {
+	height: 6px;
+	background-color: #BBB;
+	opacity: 0.7;
+	filter: alpha(opacity = 60);
+	padding: 0
+}
+
+.dgbox-wrapper .left,.dgbox-wrapper .right {
+	width: 6px;
+	background-color: #BBB;
+	opacity: 0.7;
+	filter: alpha(opacity = 60);
+	padding: 0
+}
+
+/* Title bar */
+.dgbox-wrapper .title-bar {
+	background-color: #EAF2FA;
+	border-bottom: 1px solid #D9E5F2;
+	padding: 6px;
+	position: relative;
+}
+
+.dgbox-wrapper .title-bar.dragging {
+	cursor: move;
+}
+
+.dgbox-wrapper .title-bar h2 {
+	font-size: 14px;
+	color: black;
+	line-height: 1;
+	margin: 0;
+	padding: 0;
+	font-weight: normal;
+}
+
+.dgbox-wrapper .title-bar .close {
+	color: black;
+	position: absolute;
+	top: 6px;
+	right: 6px;
+	font-size: 90%;
+	line-height: 1;
+}
+
+/* Content Region */
+.dgbox-inner {
+	background-color: white;
+	border: 1px solid #D9E5F2;
+	padding: 0
+}
+
+.dgbox-content {
+	padding: 15px;
+}
+
+/* Question Boxes */
+.dgbox-wrapper .question {
+	width: 350px;
+	min-height: 80px;
+}
+
+.dgbox-wrapper .answers {
+	text-align: right;
+}

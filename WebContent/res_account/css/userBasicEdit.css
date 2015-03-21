@@ -1,0 +1,27 @@
+.li-select {
+	float: left;
+	height: 27px;
+	border: 1px solid #AAA;
+	line-height: 27px;
+	-webkit-border-radius: 3px;
+	-moz-border-radius: 3px;
+	-ms-border-radius: 3px;
+	border-radius: 3px;
+	color: #666;
+	font-size: 14px;
+}
+
+.bc_lab_2 {
+	display:block;
+	float: left;
+	height: 27px;
+	line-height:27px;
+	padding: 0 15px 0 5px;
+}
+
+.li-textarea {
+	display: block;
+	float: left;
+	width: 250px;
+	height: 60px;
+}

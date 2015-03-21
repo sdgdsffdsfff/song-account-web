@@ -1,0 +1,111 @@
+.user-nick-shop {
+	margin-top: 10px;
+	font-size: 27px;
+	color: #666;
+	clear: both;
+	font-family: Microsoft YaHei;
+	padding: 15px 10px 10px;
+}
+
+.user-basic-left {
+	float: left;
+	width: 232px;
+}
+
+.user-img-left {
+	background-color: white;
+	-webkit-border-top-left-radius: 15px;
+	-moz-border-top-left-radius: 15px;
+	border-top-left-radius: 15px;
+	padding: 20px 20px 15px 20px;
+}
+
+.user-img-left img {
+	width: 192px;
+	height: 192px;
+}
+
+.user-basic-right {
+	background-color: white;
+	float: right;
+	width: 750px;
+	-webkit-border-top-right-radius: 15px;
+	-moz-border-top-right-radius: 15px;
+	border-top-right-radius: 15px;
+}
+
+.user-basic-main {
+	padding: 15px 20px;
+	min-height: 600px;
+}
+
+.shoper {
+	margin-top: 10px;
+}
+
+.user-atten {
+	margin-top: 10px;
+}
+
+.user-atten li {
+	float: left;
+	line-height: 23px;
+	padding-right: 2px;
+	font-size: 16px;
+}
+
+.user-atten li a {
+	display: block;
+	padding: 5px 5px;
+	background: url(../images/per_bg.jpg);
+}
+
+.user-atten li a .text-desc, .user-atten li a .text-count {
+	display: block;
+}
+
+.user-atten li a .text-desc {
+	color: #333;
+}
+
+.user-operation {
+	margin-top: 5px;
+	background-color: white;
+	padding: 15px 0 15px 15px;
+}
+
+.operation-list {
+	width: 217px;
+}
+
+.operation-list li {
+	word-spacing: 0.2em;
+	display: block;
+	font-size: 14px;
+}
+
+.operation-list li a {
+	display: block;
+	line-height: 30px;
+	height: 30px;
+	padding-left: 10px;
+	cursor: pointer;
+	color: #2ba7e8;
+}
+
+.operation-list li a:hover {
+	background: #ddf3ff;
+}
+
+.operation-list li a.fixed {
+	color: white;
+	background: url(../images/ulbg.gif) repeat-x;
+}
+
+.model-title {
+	font-size: 18px;
+	font-family: Microsoft YaHei;
+	padding: 7px 15px 7px 15px;
+	color: #666;
+	border-bottom: 1px solid #ccc;
+}

@@ -1,0 +1,105 @@
+body {
+	background: #f3f3f3;
+}
+
+.login-main {
+	margin: 35px auto 15px;
+	padding: 34px 0 40px 48px;
+	background: white;
+	overflow: hidden;
+	zoom: 1;
+	border-radius: 5px;
+	-webkit-box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+	box-shadow: 1px 2px 3px rgba(0, 0, 0, 0.1);
+}
+
+.m-bd {
+	font-size: 24px;
+	font-family: Microsoft YaHei;
+}
+
+.login-foot {
+	margin-top: 30px;
+	text-align: center;
+}
+
+.bc-dlu .fgt-word {
+	float: left;
+	padding: 8px 0 0 10px;
+}
+
+.bc-hz {
+	float: left;
+}
+
+.bc-hz-p {
+	display: inline-block;
+	border-bottom: 1px solid #EFEFEF;
+	padding-bottom: 5px;
+	color: #888;
+}
+
+.bc-other-logo {
+	overflow: hidden;
+	zoom: 1;
+	padding-top: 8px;
+}
+
+.bc-logo-all {
+	display: block;
+	float: left;
+	margin-right: 4px;
+}
+
+.bc-logo-all a {
+	display: block;
+	float: left;
+	border-right: 1px solid #dbdbdb;
+	height: 18px;
+	line-height: 18px;
+	padding-right: 5px;
+}
+
+.bc-logo-all s {
+	display: block;
+	height: 18px;
+	width: 20px;
+	float: left;
+	background: url(../images/bd3.gif) no-repeat;
+}
+
+.bc-logo-qq s {
+	background-position: 0 0;
+}
+
+.bc-logo-sina s {
+	background-position: -25px 0;
+}
+
+.bc-logo-ren s {
+	background-position: -52px 0;
+}
+
+.bc-logo-kaixin s {
+	background-position: -76px 0;
+}
+
+.m-left {
+	width: 645px;
+	padding-top: 10px;
+	float: left;
+	border-right: 1px solid #e5e5e5;
+}
+
+.m-right {
+	padding: 40px 0 0 35px;
+	float: left;
+}
+
+.m-r-title {
+	display: block;
+	font-size: 14px;
+	color: #888;
+	line-height: 20px;
+	padding-bottom: 15px;
+}

@@ -1,12 +1,154 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd" id="WebApp_ID" version="2.5">
-  <display-name>song-account-web</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee 
+	http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:applicationContext.xml</param-value>
+	</context-param>
+
+	<!-- 自动装配配置信息 -->
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+	<!-- 它主要负责处理由 JavaBean Introspector 功能而引起的缓存泄露 -->
+	<listener>
+		<listener-class>org.springframework.web.util.IntrospectorCleanupListener</listener-class>
+	</listener>
+
+	<!-- 注意因为servlet-name为xfire，固xfire配置文件名应该是xfire-servlet.xml -->
+	<!-- 
+	<servlet>
+		<servlet-name>xfire</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:xfire-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xfire</servlet-name>
+		<url-pattern>*.ws</url-pattern>
+	</servlet-mapping>
+	 -->
+	<!-- 配合Spring容器中XFire一起工作的Servlet- -->
+	<!-- 
+	<servlet>
+		<servlet-name>xfireServlet</servlet-name>
+		<servlet-class>org.codehaus.xfire.spring.XFireSpringServlet</servlet-class>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>xfireServlet</servlet-name>
+		<url-pattern>/service/*</url-pattern>
+	</servlet-mapping>
+	 -->
+	
+	<!-- 
+	<servlet>
+		<servlet-name>remote</servlet-name>
+		<servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextConfigLocation</param-name>
+			<param-value>classpath:remote-servlet.xml</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>remote</servlet-name>
+		<url-pattern>/remote/*</url-pattern>
+	</servlet-mapping>
+	 -->
+
+	<!-- Servlet -->
+	<servlet>
+		<servlet-name>ssoAuthServlet</servlet-name>
+		<servlet-class>com.song.account.api.ServletToBeanProxy</servlet-class>
+		<init-param>
+		    <param-name>targetBean</param-name>
+		    <param-value>ssoAuthServlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>ssoAuthServlet</servlet-name>
+		<url-pattern>/api/ssoAuth/*</url-pattern>
+	</servlet-mapping>
+	<servlet>
+		<servlet-name>userServlet</servlet-name>
+		<servlet-class>com.song.account.api.ServletToBeanProxy</servlet-class>
+		<init-param>
+		    <param-name>targetBean</param-name>
+		    <param-value>userServlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>userServlet</servlet-name>
+		<url-pattern>/api/user/*</url-pattern>
+	</servlet-mapping>
+ 
+ 	<filter>
+ 	    <filter-name>clientSessionFilter</filter-name>
+ 	    <filter-class>com.song.account.web.filter.ClientSessionFilter</filter-class>
+ 	    <init-param>
+			<description>可以不需要过滤的请求</description>
+			<param-name>no_filter_url</param-name>
+			<param-value></param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>clientSessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+ 
+ 	<filter>
+		<filter-name>checkLoginFilter</filter-name>
+		<filter-class>com.song.account.web.filter.CheckLoginFilter</filter-class>
+		<init-param>
+			<description>可以不需要过滤的请求</description>
+			<param-name>no_filter_url</param-name>
+			<param-value></param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>checkLoginFilter</filter-name>
+		<url-pattern>/member/*</url-pattern>
+	</filter-mapping>
+	
+	<filter>
+		<filter-name>encodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>encodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<filter>
+		<filter-name>struts2</filter-name>
+		<filter-class>
+			org.apache.struts2.dispatcher.ng.filter.StrutsPrepareAndExecuteFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>struts2</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+
+	<error-page>
+		<error-code>404</error-code>
+		<location>/notexist.jsp</location>
+	</error-page>
+
+	<welcome-file-list>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
 </web-app>

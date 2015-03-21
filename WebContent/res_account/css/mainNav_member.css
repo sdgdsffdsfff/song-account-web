@@ -1,0 +1,60 @@
+.header-box-out {
+	margin-top: 0px;
+	background: #53c4f3;
+}
+
+.header-box {
+	height: 68px;
+	position: relative;
+}
+
+.header-logo {
+	position: absolute;
+	left: -7px;
+	top: 10px;
+}
+
+a.logo-link {
+	display: block;
+	width: 250px;
+	height: 54px;
+	background: url(../images/logo_index_white.png) 0 0 no-repeat;
+	text-indent: -9999em;
+	overflow: hidden;
+}
+
+.menu-list {
+	position: absolute;
+	height: 45px;
+	width: 740px;
+	left: 250px;
+	bottom: 0px;
+}
+
+.menu-list li {
+	float: left;
+	display: list-item;
+}
+
+.menu-list li a {
+	float: left;
+	display: block;
+	font: 18px/ 36px Microsoft Yahei;
+	padding: 0 15px;
+	height: 45px;
+	line-height: 45px;
+	color: #fff;
+}
+
+.menu-list li a:hover {
+	line-height: 40px;
+}
+
+.menu-list li a.selected {
+	background: #fff;
+	color: #6f8586;
+}
+
+.menu-list li a.selected:hover {
+	line-height: 45px;
+}
