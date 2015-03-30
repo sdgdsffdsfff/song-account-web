@@ -12,6 +12,7 @@ import org.apache.log4j.Logger;
 
 import com.song.account.entity.User;
 import com.song.account.service.SSOAuthService;
+import com.song.commons.api.Result;
 import com.song.commons.api.StringResult;
 import com.song.commons.api.util.GsonUtil;
 import com.song.commons.entity.EntityUtil;
@@ -27,6 +28,7 @@ public class SSOAuthServlet extends HttpServlet {
 	private static String IS_CLIENT_SESSION_ID_JSON = "isClientSessionId.json";
 	private static String LOGIN_JSON = "login.json";
 	private static String LOGOUT_JSON = "logout.json";
+	private static String GET_RONG_TOKEN_JSON = "getRongToken.json";
 
 	private static Logger logger = Logger.getLogger(SSOAuthServlet.class);
 
@@ -48,6 +50,8 @@ public class SSOAuthServlet extends HttpServlet {
 			login(req, rsp);
 		} else if (pathInfo.endsWith(LOGOUT_JSON)) {
 			logout(req, rsp);
+		} else if (pathInfo.endsWith(GET_RONG_TOKEN_JSON)) {
+			getRongToken(req, rsp);
 		}
 	}
 
@@ -117,14 +121,14 @@ public class SSOAuthServlet extends HttpServlet {
 		rsp.setContentType("text/json;charset=UTF-8");
 		PrintWriter out = rsp.getWriter();
 		out.print(GsonUtil.toJson(sr, StringResult.class));
-		// out.flush();
+		out.flush();
 		out.close();
 	}
 
 	public void logout(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
 		String method = req.getMethod();
-		StringResult sr = new StringResult();
+		Result sr = new Result();
 		if (method.equalsIgnoreCase("post")) {
 			String sessionId = req.getParameter("sessionId");
 			ssoAuthService.logout(sessionId);
@@ -135,8 +139,30 @@ public class SSOAuthServlet extends HttpServlet {
 
 		rsp.setContentType("text/json;charset=UTF-8");
 		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(sr, StringResult.class));
-		// out.flush();
+		out.print(GsonUtil.toJson(sr, Result.class));
+		out.flush();
 		out.close();
 	}
+	
+	public void getRongToken(HttpServletRequest req, HttpServletResponse rsp)
+			throws IOException {
+		String method = req.getMethod();
+		StringResult sr = new StringResult();
+		if (method.equalsIgnoreCase("post")) {
+			String sessionId = req.getParameter("sessionId");
+			String resAccountUri = req.getParameter("resAccountUri");
+			String value = ssoAuthService.getRongToken(sessionId, resAccountUri);
+			sr.setValue(value);
+		} else {
+			sr.setErrCode(General.GEN_003.getErrCode());
+			sr.setErrDesc("not count get method.");
+		}
+
+		rsp.setContentType("text/json;charset=UTF-8");
+		PrintWriter out = rsp.getWriter();
+		out.print(GsonUtil.toJson(sr, StringResult.class));
+		out.flush();
+		out.close();
+	}
+
 }

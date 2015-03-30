@@ -14,6 +14,16 @@ import com.song.commons.service.ServiceException;
  * 
  */
 public interface UserService {
+
+	/**
+	 * 获取用户RongCloud令牌
+	 * @param userId
+	 * @param isNew 是否获取新的令牌
+	 * @param resAccountUri
+	 * @return
+	 */
+	public String getRongToken(long userId, boolean isNew, String resAccountUri);
+
 	/**
 	 * 注册用户信息
 	 * 
@@ -132,6 +142,7 @@ public interface UserService {
 
 	/**
 	 * 第三方账号登入
+	 * 
 	 * @param siteMark
 	 * @param openId
 	 * @param accessToken
@@ -143,6 +154,7 @@ public interface UserService {
 
 	/**
 	 * 绑定第三方平台用户
+	 * 
 	 * @param userId
 	 * @param siteMark
 	 * @param openId
@@ -161,9 +173,10 @@ public interface UserService {
 	 * @param bindSiteId
 	 */
 	public void cancelBindSite(Long bindSiteId);
-	
+
 	/**
 	 * 查询用户所绑定的平台
+	 * 
 	 * @param userId
 	 */
 	public List<BindSite> getBindSiteListByUser(Long userId);

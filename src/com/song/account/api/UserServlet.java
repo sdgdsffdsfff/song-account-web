@@ -68,6 +68,7 @@ public class UserServlet extends HttpServlet {
 		rsp.setContentType("text/json;charset=UTF-8");
 		PrintWriter out = rsp.getWriter();
 		out.print(GsonUtil.toJson(user, User.class));
+		out.flush();
 		out.close();
 	}
 
@@ -93,6 +94,7 @@ public class UserServlet extends HttpServlet {
 		rsp.setContentType("text/json;charset=UTF-8");
 		PrintWriter out = rsp.getWriter();
 		out.print(GsonUtil.toJson(ups, ups.getClass()));
+		out.flush();
 		out.close();
 	}
 

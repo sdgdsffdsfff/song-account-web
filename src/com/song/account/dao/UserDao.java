@@ -139,4 +139,12 @@ public interface UserDao {
 	 * @return
 	 */
 	public User queryByEnEmail(String enEmail);
+
+	/**
+	 * 修改用户rongToken
+	 * @param userId
+	 * @param rongToken
+	 * @return
+	 */
+	public int updateRongToken(long userId, String rongToken);
 }

@@ -97,4 +97,13 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 		return ClientManager.getInstance().getSession(sessionId);
 	}
 
+	@Override
+	public String getRongToken(String sessionId, String resAccountUri) {
+		Long userId = getUserId(sessionId);
+		if (userId == null) {
+			return null;
+		}
+		return userService.getRongToken(userId, true, resAccountUri);
+	}
+
 }

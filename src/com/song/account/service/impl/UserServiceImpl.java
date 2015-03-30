@@ -1,5 +1,8 @@
 package com.song.account.service.impl;
 
+import io.rong.im.api.ApiRongIM;
+import io.rong.im.api.models.UserToken;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -17,8 +20,8 @@ import com.qq.connect.javabeans.qzone.UserInfoBean;
 import com.song.account.dao.BindSiteDao;
 import com.song.account.dao.UserDao;
 import com.song.account.entity.BindSite;
-import com.song.account.entity.User;
 import com.song.account.entity.BindSite.SiteMark;
+import com.song.account.entity.User;
 import com.song.account.service.ErrService;
 import com.song.account.service.UserService;
 import com.song.commons.PageInfo;
@@ -52,7 +55,8 @@ public class UserServiceImpl implements UserService {
 		if (u != null && password.equals(u.getPassword())) {
 			return u;
 		} else {
-			throw new ServiceException(ErrService.UserS.ERR_100_009, "用户账号或者密码错误");
+			throw new ServiceException(ErrService.UserS.ERR_100_009,
+					"用户账号或者密码错误");
 		}
 	}
 
@@ -71,17 +75,25 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User register(String account, String password, String nick)
 			throws ServiceException {
-		if (StringUtil.isEmptyOrNull(account)
-				|| StringUtil.isEmptyOrNull(password)
+		if (StringUtil.isEmptyOrNull(password)
 				|| StringUtil.isEmptyOrNull(nick)) {
 			throw new IllegalArgumentException();
 		}
 
-		// 验证账号格式
-		if (!StringUtil.match(account, "^\\w{5,50}$")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_005, "账号：“"
-					+ account + "”格式错误。");
+		if (!StringUtil.isEmptyOrNull(account)) {
+			// 验证账号格式
+			if (!StringUtil.match(account, "^\\w{5,50}$")) {
+				throw new ServiceException(ErrService.UserS.ERR_100_005, "账号：“"
+						+ account + "”格式错误。");
+			}
+			account = account.toLowerCase();
+			// 验证账号是否重复
+			if (this.verifyAccountRep(account)) {
+				throw new ServiceException(ErrService.UserS.ERR_100_001, "账号：“"
+						+ account + "”已经被使用。");
+			}
 		}
+
 		// 验证昵称格式
 		if (!StringUtil.match(nick, "^.{1,12}$")) {
 			throw new ServiceException(ErrService.UserS.ERR_100_006, "昵称：“"
@@ -92,14 +104,6 @@ public class UserServiceImpl implements UserService {
 			throw new ServiceException(ErrService.UserS.ERR_100_007, "密码：“"
 					+ password + "”格式错误。");
 		}
-
-		account = account.toLowerCase();
-		// 验证账号是否重复
-		if (this.verifyAccountRep(account)) {
-			throw new ServiceException(ErrService.UserS.ERR_100_001, "账号：“"
-					+ account + "”已经被使用。");
-		}
-
 		// 验证昵称是否重复
 		if (this.verifyNickRep(nick)) {
 			throw new ServiceException(ErrService.UserS.ERR_100_002, "昵称：“"
@@ -381,6 +385,38 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<BindSite> getBindSiteListByUser(Long userId) {
 		return bindSiteDao.queryListByUserId(userId);
+	}
+
+	@Override
+	public String getRongToken(long userId, boolean isNew, String resAccountUri) {
+		User user = this.getUserById(userId);
+		if (user == null) {
+			return null;
+		}
+		if (user.getRongToken() != null && !isNew) {
+			return user.getRongToken();
+		}
+		
+		String imgUrl = user.getPhotoPath();
+		if (imgUrl != null && !imgUrl.startsWith("http://")) {
+			imgUrl = resAccountUri + imgUrl;
+		}
+	
+		UserToken ut = null;
+		try {
+			String appKey = "0vnjpoadnxp5z";
+			String appSecret = "3UH04WirdR69D";
+			ApiRongIM.init(appKey, appSecret);
+			ut = ApiRongIM.getToken(user.getUserId() + "",
+					user.getNickName(), imgUrl);
+			user.setRongToken(ut.getToken());
+		} catch (Exception e) {
+			logger.error("userId=" + user.getUserId(), e);
+		}
+		// 修改数据库
+		userDao.updateRongToken(userId, user.getRongToken());
+
+		return user.getRongToken();
 	}
 
 }

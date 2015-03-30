@@ -36,6 +36,7 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 		user.setEaddress(rs.getString(UserF.EADDRESS.name()));
 		user.setEnEmail(rs.getString(UserF.EN_EMAIL.name()));
 		user.setEmIcId(rs.getLong(UserF.EM_IC_ID.name()));
+		user.setRongToken(rs.getString(UserF.RONG_TOKEN.name()));
 
 		return user;
 	}
@@ -65,13 +66,14 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 		fields.append(tabPoint).append(UserF.SUMMARY).append(",");
 		fields.append(tabPoint).append(UserF.EADDRESS).append(",");
 		fields.append(tabPoint).append(UserF.EN_EMAIL).append(",");
-		fields.append(tabPoint).append(UserF.EM_IC_ID).append("");
+		fields.append(tabPoint).append(UserF.EM_IC_ID).append(",");
+		fields.append(tabPoint).append(UserF.RONG_TOKEN).append("");
 		return fields.toString();
 	}
 
 	@Override
 	protected String getParamMarks() {
-		return "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
+		return "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?";
 	}
 
 	@Override
@@ -82,7 +84,7 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 				user.getEmail(), user.getBirthdayYear(),
 				user.getBirthdayMonth(), user.getBirthdayDay(),
 				user.getSummary(), user.getEaddress(), user.getEnEmail(),
-				user.getEmIcId() };
+				user.getEmIcId(), user.getRongToken() };
 	}
 
 	@Override
@@ -299,6 +301,10 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 			sql.append(",").append(UserF.EM_IC_ID).append("=?");
 			params.add(user.getEmIcId());
 		}
+		if (user.getRongToken() != null) {
+			sql.append(",").append(UserF.RONG_TOKEN).append("=?");
+			params.add(user.getRongToken());
+		}
 
 		sql.append(" where ").append(UserF.USER_ID).append("=?");
 		params.add(user.getUserId());
@@ -391,5 +397,13 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 	@Override
 	public long getId() {
 		return this.getId(Account.ACC_USER);
+	}
+
+	@Override
+	public int updateRongToken(long userId, String rongToken) {
+		User user = new User();
+		user.setUserId(userId);
+		user.setRongToken(rongToken);
+		return this.update(user);
 	}
 }

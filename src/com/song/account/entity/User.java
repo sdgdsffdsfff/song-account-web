@@ -86,9 +86,19 @@ public class User extends LazyLoadEntity {
 	private String summary;
 	/** E通信地址（聊天工具） */
 	private String eaddress;
+	/** 用户在RongCloud服务器上的Token */
+	private String rongToken;
 
 	public User() {
 		super();
+	}
+
+	public String getRongToken() {
+		return rongToken;
+	}
+
+	public void setRongToken(String rongToken) {
+		this.rongToken = rongToken;
 	}
 
 	public User(Long userId) {
@@ -288,12 +298,14 @@ public class User extends LazyLoadEntity {
 
 	@Override
 	public String toString() {
-		return "User [account=" + account + ", addTime=" + addTime
-				+ ", birthdayDay=" + birthdayDay + ", birthdayMonth="
-				+ birthdayMonth + ", birthdayYear=" + birthdayYear
-				+ ", eaddress=" + eaddress + ", email=" + email + ", nickName="
-				+ nickName + ", password=" + password + ", photoPath="
-				+ photoPath + ", sex=" + sex + ", summary=" + summary
-				+ ", userId=" + userId + ", userName=" + userName + "]";
+		return "User [userId=" + userId + ", account=" + account
+				+ ", password=" + password + ", nickName=" + nickName
+				+ ", userName=" + userName + ", addTime=" + addTime
+				+ ", photoPath=" + photoPath + ", sex=" + sex + ", email="
+				+ email + ", enEmail=" + enEmail + ", emIcId=" + emIcId
+				+ ", birthdayYear=" + birthdayYear + ", birthdayMonth="
+				+ birthdayMonth + ", birthdayDay=" + birthdayDay + ", summary="
+				+ summary + ", eaddress=" + eaddress + ", rongToken=" + rongToken
+				+ "]";
 	}
 }

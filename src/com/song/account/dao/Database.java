@@ -80,6 +80,8 @@ public abstract class Database {
 		SUMMARY,
 		/** E通信地址（聊天工具） */
 		EADDRESS,
+		/** 用户在RongCloud服务器上的Token */
+		RONG_TOKEN,
 	}
 	
 	public static enum BindSiteF implements Fields {
