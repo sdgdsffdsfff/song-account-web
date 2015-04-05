@@ -87,6 +87,19 @@
 		<servlet-name>userServlet</servlet-name>
 		<url-pattern>/api/user/*</url-pattern>
 	</servlet-mapping>
+	<servlet>
+		<servlet-name>friendServlet</servlet-name>
+		<servlet-class>com.song.account.api.ServletToBeanProxy</servlet-class>
+		<init-param>
+		    <param-name>targetBean</param-name>
+		    <param-value>friendServlet</param-value>
+		</init-param>
+		<load-on-startup>1</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>friendServlet</servlet-name>
+		<url-pattern>/api/friend/*</url-pattern>
+	</servlet-mapping>
  
  	<filter>
  	    <filter-name>clientSessionFilter</filter-name>

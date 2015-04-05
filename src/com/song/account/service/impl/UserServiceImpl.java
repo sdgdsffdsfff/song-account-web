@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
 		if (u != null && password.equals(u.getPassword())) {
 			return u;
 		} else {
-			throw new ServiceException(ErrService.UserS.ERR_100_009,
+			throw new ServiceException(ErrService.UserS.ACC_100_009,
 					"用户账号或者密码错误");
 		}
 	}
@@ -83,30 +83,30 @@ public class UserServiceImpl implements UserService {
 		if (!StringUtil.isEmptyOrNull(account)) {
 			// 验证账号格式
 			if (!StringUtil.match(account, "^\\w{5,50}$")) {
-				throw new ServiceException(ErrService.UserS.ERR_100_005, "账号：“"
+				throw new ServiceException(ErrService.UserS.ACC_100_005, "账号：“"
 						+ account + "”格式错误。");
 			}
 			account = account.toLowerCase();
 			// 验证账号是否重复
 			if (this.verifyAccountRep(account)) {
-				throw new ServiceException(ErrService.UserS.ERR_100_001, "账号：“"
+				throw new ServiceException(ErrService.UserS.ACC_100_001, "账号：“"
 						+ account + "”已经被使用。");
 			}
 		}
 
 		// 验证昵称格式
 		if (!StringUtil.match(nick, "^.{1,12}$")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_006, "昵称：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_006, "昵称：“"
 					+ nick + "”格式错误。");
 		}
 		// 验证密码格式
 		if (!StringUtil.match(password, "^.{6,20}$")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_007, "密码：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_007, "密码：“"
 					+ password + "”格式错误。");
 		}
 		// 验证昵称是否重复
 		if (this.verifyNickRep(nick)) {
-			throw new ServiceException(ErrService.UserS.ERR_100_002, "昵称：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_002, "昵称：“"
 					+ nick + "”已经被使用。");
 		}
 
@@ -152,7 +152,7 @@ public class UserServiceImpl implements UserService {
 	public void editUserPasswore(Long userId, String oldPsw, String newPsw) {
 		// 验证密码格式
 		if (!StringUtil.match(newPsw, "^.{6,20}$")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_007, "密码：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_007, "密码：“"
 					+ newPsw + "”格式错误。");
 		}
 
@@ -160,7 +160,7 @@ public class UserServiceImpl implements UserService {
 		oldPsw = PasswordMD.md5(oldPsw);
 		User user = userDao.queryById(userId);
 		if (!user.getPassword().equals(oldPsw)) {
-			throw new ServiceException(ErrService.UserS.ERR_100_003, "用户：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_003, "用户：“"
 					+ userId + "”原始密码错误。");
 		}
 
@@ -184,7 +184,7 @@ public class UserServiceImpl implements UserService {
 		}
 		// 验证昵称格式
 		if (!StringUtil.match(nickName, "^.{1,12}$")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_006, "昵称：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_006, "昵称：“"
 					+ nickName + "”格式错误。");
 		}
 		// 验证生日格式
@@ -192,7 +192,7 @@ public class UserServiceImpl implements UserService {
 		try {
 			calendar.set(birthdayYear, birthdayMonth - 1, birthdayDay);
 		} catch (Exception e) {
-			throw new ServiceException(ErrService.UserS.ERR_100_004, "生日：“"
+			throw new ServiceException(ErrService.UserS.ACC_100_004, "生日：“"
 					+ birthdayYear + "年" + birthdayMonth + "月" + birthdayDay
 					+ "日”，格式错误。", e);
 		}
@@ -200,7 +200,7 @@ public class UserServiceImpl implements UserService {
 		User user = userDao.queryById(userId);
 		if (!user.getNickName().equals(nickName)) {
 			if (this.verifyNickRep(nickName)) {
-				throw new ServiceException(ErrService.UserS.ERR_100_002, "昵称：“"
+				throw new ServiceException(ErrService.UserS.ACC_100_002, "昵称：“"
 						+ nickName + "”已经被使用。");
 			}
 		}
@@ -220,12 +220,12 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public void editUserEmail(Long userId, String email) {
 		if (email == null || email.equals("")) {
-			throw new ServiceException(ErrService.UserS.ERR_100_002,
+			throw new ServiceException(ErrService.UserS.ACC_100_002,
 					"电子邮箱格式错误。");
 		}
 		User u = userDao.queryByEnEmail(email);
 		if (u != null) {
-			throw new ServiceException(ErrService.UserS.ERR_100_002,
+			throw new ServiceException(ErrService.UserS.ACC_100_002,
 					"该电子邮箱已经被激活。");
 		}
 		User user = userDao.queryById(userId);
@@ -301,7 +301,7 @@ public class UserServiceImpl implements UserService {
 				uib = ui.getUserInfo();
 			} catch (QQConnectException e) {
 				logger.error(e);
-				throw new ServiceException(ErrService.UserS.ERR_100_008,
+				throw new ServiceException(ErrService.UserS.ACC_100_008,
 						"QQ_API调用异常", "第三方平台异常，请从新尝试！");
 			}
 			nickName = uib.getNickname();
@@ -313,7 +313,7 @@ public class UserServiceImpl implements UserService {
 				nickName = user.getScreenName();
 			} catch (WeiboException e) {
 				logger.error(e);
-				throw new ServiceException(ErrService.UserS.ERR_100_008,
+				throw new ServiceException(ErrService.UserS.ACC_100_008,
 						"SINA_API调用异常", "第三方平台异常，请从新尝试！");
 			}
 		}
@@ -330,7 +330,7 @@ public class UserServiceImpl implements UserService {
 
 		BindSite bs3 = bindSiteDao.queryByOpenId(siteMark, openId);
 		if (bs3 != null) {
-			throw new ServiceException(ErrService.UserS.ERR_100_008,
+			throw new ServiceException(ErrService.UserS.ACC_100_008,
 					"当前第三方账号已经被其他账号绑定！");
 		}
 		// 当前用户是否已经绑定
@@ -372,11 +372,11 @@ public class UserServiceImpl implements UserService {
 	public void cancelBindSite(Long bindSiteId) {
 		BindSite bs = bindSiteDao.queryById(bindSiteId);
 		if (bs == null) {
-			throw new ServiceException(ErrService.UserS.ERR_100_008,
+			throw new ServiceException(ErrService.UserS.ACC_100_008,
 					"已经解绑成功，不允许再次操作！");
 		}
 		if (bs.getRegFlag()) {
-			throw new ServiceException(ErrService.UserS.ERR_100_008,
+			throw new ServiceException(ErrService.UserS.ACC_100_008,
 					"第三方账号注册，不允许解除绑定关系！");
 		}
 		bindSiteDao.deletById(bindSiteId);

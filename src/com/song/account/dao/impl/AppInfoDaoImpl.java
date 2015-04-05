@@ -5,7 +5,9 @@ import java.sql.SQLException;
 import java.util.List;
 
 import com.song.account.dao.AppInfoDao;
+import com.song.account.dao.Database.AppInfoF;
 import com.song.account.entity.AppInfo;
+import com.song.commons.Sequence;
 import com.song.commons.dao.BasicDao;
 
 public class AppInfoDaoImpl extends BasicDao<AppInfo> implements AppInfoDao {
@@ -36,14 +38,19 @@ public class AppInfoDaoImpl extends BasicDao<AppInfo> implements AppInfoDao {
 
 	@Override
 	protected void init(AppInfo t) {
-		// TODO Auto-generated method stub
-		
+		t.init();
+		if (t.getAppKey() == null) {
+			t.setAppKey(Sequence.getInstance().getSequence(16));
+		}
 	}
 
 	@Override
 	protected AppInfo rowMapper(ResultSet rs, int rowNum) throws SQLException {
-		// TODO Auto-generated method stub
-		return null;
+		AppInfo app = new AppInfo();
+		app.setAddTime(rs.getTimestamp(AppInfoF.ADD_TIME.name()));
+		app.setAppKey(rs.getString(AppInfoF.APP_KEY.name()));
+		app.setAppSecret(rs.getString(AppInfoF.APP_SECRET.name()));
+		return app;
 	}
 
 	@Override

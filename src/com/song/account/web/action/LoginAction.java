@@ -84,15 +84,15 @@ public class LoginAction extends BasicAction {
 			ia.login(account, password);
 		} catch (ServiceException e) {
 			logger.error("LoginAction.register();", e);
-			if (e.getErrInfo().equals(ErrService.UserS.ERR_100_001)) {
+			if (e.getErrInfo().equals(ErrService.UserS.ACC_100_001)) {
 				this.put("errInfo", "账号已经被使用过了");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_002)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_002)) {
 				this.put("errInfo", "昵称太受欢迎了，请另外选一个");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_005)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_005)) {
 				this.put("errInfo", "账号格式错误");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_006)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_006)) {
 				this.put("errInfo", "昵称格式错误");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_007)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_007)) {
 				this.put("errInfo", "密码格式错误");
 			}
 			return Action.ERROR;

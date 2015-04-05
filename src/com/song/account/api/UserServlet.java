@@ -58,6 +58,7 @@ public class UserServlet extends HttpServlet {
 		if (method.equalsIgnoreCase("post")) {
 			Long userId = StringUtil.parseLong(req.getParameter("userId"));
 			user = userService.getUserById(userId);
+			user.setPassword(null);
 			EntityUtil.resetLazyLoaderManager(user, null);
 		} else {
 			user = new User();

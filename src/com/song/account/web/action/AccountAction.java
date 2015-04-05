@@ -84,11 +84,11 @@ public class AccountAction extends BasicAction {
 					wangwangId);
 		} catch (ServiceException e) {
 			logger.error("AccountAction.editUserBasic();", e);
-			if (e.getErrInfo().equals(ErrService.UserS.ERR_100_002)) {
+			if (e.getErrInfo().equals(ErrService.UserS.ACC_100_002)) {
 				this.put("errInfo", "昵称太受欢迎了，请另外选一个");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_004)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_004)) {
 				this.put("errInfo", "您的生日填写错误");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_006)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_006)) {
 				this.put("errInfo", "昵称格式错误");
 			}
 			return Action.ERROR;
@@ -143,9 +143,9 @@ public class AccountAction extends BasicAction {
 			userService.editUserPasswore(user.getUserId(), oldPsw, newPsw);
 		} catch (ServiceException e) {
 			logger.error("AccountAction.editUserPasw();", e);
-			if (e.getErrInfo().equals(ErrService.UserS.ERR_100_007)) {
+			if (e.getErrInfo().equals(ErrService.UserS.ACC_100_007)) {
 				this.put("errInfo", "新密码格式错误");
-			} else if (e.getErrInfo().equals(ErrService.UserS.ERR_100_003)) {
+			} else if (e.getErrInfo().equals(ErrService.UserS.ACC_100_003)) {
 				this.put("errInfo", "当前密码输入错误");
 			}
 			return Action.INPUT;

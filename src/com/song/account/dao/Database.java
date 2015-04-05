@@ -14,6 +14,14 @@ public abstract class Database {
 		ACC_BIND_SITE,
 		/** 应用相关信息 */
 		ACC_APP_INFO,
+		/** 好友（联系人） */
+		ACC_FRIEND,
+		/** 好友申请（申请加为好友） */
+		ACC_FRIEND_APPLY,
+		/** 好友申请时，往来的消息 */
+		ACC_FRIEND_MESSAGE,
+		/** 客户端唯一标识 */
+		ACC_CLIENT_SESSION,
 	}
 
 	public static enum IdentifyCodeF implements Fields {
@@ -40,7 +48,7 @@ public abstract class Database {
 		/** 内容描述 */
 		TEXT_DESC,
 	}
-	
+
 	/**
 	 * 用户表的字段
 	 * 
@@ -83,7 +91,7 @@ public abstract class Database {
 		/** 用户在RongCloud服务器上的Token */
 		RONG_TOKEN,
 	}
-	
+
 	public static enum BindSiteF implements Fields {
 		/** 主键ID */
 		BIND_SITE_ID,
@@ -110,9 +118,10 @@ public abstract class Database {
 		/** 修改时间 */
 		UPD_TIME,
 	}
-	
+
 	/**
 	 * APP信息
+	 * 
 	 * @author 张松
 	 *
 	 */
@@ -124,5 +133,78 @@ public abstract class Database {
 		/** 添加时间 */
 		ADD_TIME,
 	}
+
+	/**
+	 * 好友（联系人）
+	 * 
+	 * @author songzigw
+	 *
+	 */
+	public static enum FriendF implements Fields {
+		/** 用户ID */
+		USER_ID,
+		/** 用户好友ID */
+		FRIEND_USER_ID,
+		/** 添加时间 */
+		ADD_TIME,
+	}
+
+	/**
+	 * 好友申请（申请加为好友）
+	 * 
+	 * @author songzigw
+	 *
+	 */
+	public static enum FriendApplyF implements Fields {
+		/** 主键ID */
+		FAY_ID,
+		/** 申请人 */
+		FROM_USER_ID,
+		/** 接受方 */
+		TO_USER_ID,
+		/** 申请时间 */
+		ADD_TIME,
+		/** 发送的信息 */
+		FRIDEND_MESSAGE,
+		/** 申请结果：0未处理 1同意  */
+		RESULT_STATUS,
+		/** 消息在申请方是否删除 */
+		FROM_DEL_FLAG,
+		/** 消息在接受方是否删除 */
+		TO_DEL_FLAG,
+	}
 	
+	/**
+	 * 好友申请时，往来的消息
+	 * 
+	 * @author songzigw
+	 *
+	 */
+	public static enum FriendMessageF implements Fields {
+		/** 主键ID */
+		FME_ID,
+		/** 好友申请ID */
+		FAY_ID,
+		/** 消息放送方 */
+		FROM_USER_ID,
+		/** 消息接受方 */
+		TO_USER_ID,
+		/** 发送时间 */
+		ADD_TIME,
+		/** 信息内容 */
+		MESSAGE,
+	}
+	
+	public static enum ClientSessionF implements Fields {
+		/** 客户端唯一标识ID */
+		CLIENT_ID,
+		/** 创建时间 */
+		CREATION_TIME,
+		/** 最近访问时间 */
+		LAST_ACCESSED_TIME,
+		/** 客户端对应用户ID */
+		USER_ID,
+		/** SESSION是否有效（超时） */
+		VALID_FLAG,
+	}
 }

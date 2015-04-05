@@ -20,7 +20,7 @@ public class AppInfo extends LazyLoadEntity {
 	}
 
 	/** appKey */
-	private Long appKey;
+	private String appKey;
 	/** appSecret */
 	private String appSecret;
 	/** 添加时间 */
@@ -34,11 +34,11 @@ public class AppInfo extends LazyLoadEntity {
 		this.addTime = addTime;
 	}
 
-	public Long getAppKey() {
+	public String getAppKey() {
 		return appKey;
 	}
 
-	public void setAppKey(Long appKey) {
+	public void setAppKey(String appKey) {
 		this.appKey = appKey;
 	}
 

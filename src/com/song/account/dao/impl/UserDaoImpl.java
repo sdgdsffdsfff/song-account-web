@@ -150,7 +150,7 @@ public class UserDaoImpl extends BasicDao<User> implements UserDao {
 	protected void init(final User user) {
 		user.init();
 		if (user.getUserId() == null) {
-			user.setUserId(this.getId(Account.ACC_USER));
+			user.setUserId(this.getId());
 		}
 	}
 

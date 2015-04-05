@@ -19,4 +19,12 @@
 	</bean>
 	<bean id="appInfoDao" class="com.song.account.dao.impl.AppInfoDaoImpl" parent="basicDaoAcc">
 	</bean>
+	<bean id="friendDao" class="com.song.account.dao.impl.FriendDaoImpl" parent="basicDaoAcc">
+	</bean>
+	<bean id="friendMessageDao" class="com.song.account.dao.impl.FriendMessageDaoImpl" parent="basicDaoAcc">
+	</bean>
+	<bean id="friendApplyDao" class="com.song.account.dao.impl.FriendApplyDaoImpl" parent="basicDaoAcc">
+	</bean>
+	<bean id="clientSessionDao" class="com.song.account.dao.impl.ClientSessionDaoImpl" parent="basicDaoAcc">
+	</bean>
 </beans>

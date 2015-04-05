@@ -25,5 +25,11 @@
 	</bean>
 	<bean id="ssoAuthService" class="com.song.account.service.impl.SSOAuthServiceImpl">
 		<property name="userService" ref="userService"></property>
+		<property name="clientSessionDao" ref="clientSessionDao"></property>
+	</bean>
+	<bean id="friendService" class="com.song.account.service.impl.FriendServiceImpl">
+	   <property name="friendDao" ref="friendDao"></property>
+	   <property name="friendMessageDao" ref="friendMessageDao"></property>
+	   <property name="friendApplyDao" ref="friendApplyDao"></property>
 	</bean>
 </beans>
