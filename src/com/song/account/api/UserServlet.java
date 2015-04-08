@@ -1,7 +1,6 @@
 package com.song.account.api;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,7 +14,7 @@ import com.song.account.entity.User;
 import com.song.account.service.UserService;
 import com.song.commons.PageInfo;
 import com.song.commons.StringUtil;
-import com.song.commons.api.util.GsonUtil;
+import com.song.commons.api.Result;
 import com.song.commons.entity.EntityUtil;
 import com.song.commons.service.General;
 import com.song.commons.service.ServiceException;
@@ -35,13 +34,25 @@ public class UserServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
 		logger.debug("pathInfo: " + pathInfo);
+		if (!req.getMethod().equalsIgnoreCase("post")) {
+			Result rt = new Result();
+			rt.setErrCode(General.GEN_003.getErrCode());
+			rt.setErrDesc("not count get method.");
+			ServletUtil.print(rsp, rt, Result.class);
+			return;
+		}
 
 		if (pathInfo.endsWith(GET_USER_JSON)) {
 			getUser(req, rsp);
-		} else if (pathInfo.endsWith(GET_USER_LIST_JSON)) {
+			return;
+		}
+		if (pathInfo.endsWith(GET_USER_LIST_JSON)) {
 			getUserList(req, rsp);
-		} else if (pathInfo.endsWith(REGISTER_JSON)) {
+			return;
+		}
+		if (pathInfo.endsWith(REGISTER_JSON)) {
 			register(req, rsp);
+			return;
 		}
 	}
 
@@ -53,82 +64,53 @@ public class UserServlet extends HttpServlet {
 
 	public void getUser(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
-		User user = null;
-		if (method.equalsIgnoreCase("post")) {
-			Long userId = StringUtil.parseLong(req.getParameter("userId"));
-			user = userService.getUserById(userId);
-			user.setPassword(null);
-			EntityUtil.resetLazyLoaderManager(user, null);
-		} else {
-			user = new User();
-			user.setErrCode(General.GEN_003.getErrCode());
-			user.setErrDesc("not count get method.");
-		}
+		Long userId = StringUtil.parseLong(req.getParameter("userId"));
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(user, User.class));
-		out.flush();
-		out.close();
+		User user = null;
+		user = userService.getUserById(userId);
+		user.setPassword(null);
+		EntityUtil.resetLazyLoaderManager(user, null);
+
+		ServletUtil.print(rsp, user, User.class);
 	}
 
 	public void getUserList(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
+		String nickName = req.getParameter("nickName");
+		int currPage = StringUtil.parseInt(req.getParameter("currPage"));
+		int pageSize = StringUtil.parseInt(req.getParameter("pageSize"));
+
 		UserPages ups = new UserPages();
-		if (method.equalsIgnoreCase("post")) {
-			String nickName = req.getParameter("nickName");
-			int currPage = StringUtil.parseInt(req.getParameter("currPage"));
-			int pageSize = StringUtil.parseInt(req.getParameter("pageSize"));
-			PageInfo<User> userPage = userService.getUserList(nickName,
-					currPage, pageSize);
-			EntityUtil.resetLazyLoaderManager(userPage.getResult(), null);
+		PageInfo<User> userPage = userService.getUserList(nickName, currPage,
+				pageSize);
+		EntityUtil.resetLazyLoaderManager(userPage.getResult(), null);
 
-			org.springframework.beans.BeanUtils.copyProperties(userPage, ups);
-			ups.setUserList(userPage.getResult());
-		} else {
-			ups.setErrCode(General.GEN_003.getErrCode());
-			ups.setErrDesc("not count get method.");
-		}
+		org.springframework.beans.BeanUtils.copyProperties(userPage, ups);
+		ups.setUserList(userPage.getResult());
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(ups, ups.getClass()));
-		out.flush();
-		out.close();
+		ServletUtil.print(rsp, ups, UserPages.class);
 	}
 
 	public void register(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
+		String account = req.getParameter("account");
+		String password = req.getParameter("password");
+		String nick = req.getParameter("nick");
+
 		User user = null;
-		if (method.equalsIgnoreCase("post")) {
-			String account = req.getParameter("account");
-			String password = req.getParameter("password");
-			String nick = req.getParameter("nick");
-			try {
-				user = userService.register(account, password, nick);
-			} catch (ServiceException e) {
-				user = new User();
-				user.setErrCode(e.getErrCode());
-				user.setErrDesc(e.getErrDesc());
-				user.setErrNotice(e.getErrNotice());
-			} catch (Exception e) {
-				user = new User();
-				user.setErrCode(General.GEN_001.getErrCode());
-				user.setErrDesc("未知异常");
-			}
-		} else {
+		try {
+			user = userService.register(account, password, nick);
+		} catch (ServiceException e) {
 			user = new User();
-			user.setErrCode(General.GEN_003.getErrCode());
-			user.setErrDesc("not count get method.");
+			user.setErrCode(e.getErrCode());
+			user.setErrDesc(e.getErrDesc());
+			user.setErrNotice(e.getErrNotice());
+		} catch (Exception e) {
+			user = new User();
+			user.setErrCode(General.GEN_001.getErrCode());
+			user.setErrDesc("未知异常");
 		}
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(user, user.getClass()));
-		out.flush();
-		out.close();
+		ServletUtil.print(rsp, user, user.getClass());
 	}
 }

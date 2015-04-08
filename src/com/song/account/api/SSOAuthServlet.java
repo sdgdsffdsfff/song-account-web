@@ -1,7 +1,6 @@
 package com.song.account.api;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -14,7 +13,6 @@ import com.song.account.entity.User;
 import com.song.account.service.SSOAuthService;
 import com.song.commons.api.Result;
 import com.song.commons.api.StringResult;
-import com.song.commons.api.util.GsonUtil;
 import com.song.commons.entity.EntityUtil;
 import com.song.commons.service.General;
 import com.song.commons.service.ServiceException;
@@ -37,6 +35,13 @@ public class SSOAuthServlet extends HttpServlet {
 			throws ServletException, IOException {
 		String pathInfo = req.getPathInfo();
 		logger.debug("pathInfo: " + pathInfo);
+		if (!req.getMethod().equalsIgnoreCase("post")) {
+			Result rt = new Result();
+			rt.setErrCode(General.GEN_003.getErrCode());
+			rt.setErrDesc("not count get method.");
+			ServletUtil.print(rsp, rt, Result.class);
+			return;
+		}
 
 		if (pathInfo.endsWith(GET_USER_JSON)) {
 			getUser(req, rsp);
@@ -45,7 +50,7 @@ public class SSOAuthServlet extends HttpServlet {
 		} else if (pathInfo.endsWith(CREATE_CLIENT_SESSION_JSON)) {
 			createClientSession(req, rsp);
 		} else if (pathInfo.endsWith(IS_CLIENT_SESSION_ID_JSON)) {
-			//getClientSessionId(req, rsp);
+			// getClientSessionId(req, rsp);
 		} else if (pathInfo.endsWith(LOGIN_JSON)) {
 			login(req, rsp);
 		} else if (pathInfo.endsWith(LOGOUT_JSON)) {
@@ -63,106 +68,61 @@ public class SSOAuthServlet extends HttpServlet {
 
 	public void getUser(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
-		User user = null;
-		if (method.equalsIgnoreCase("post")) {
-			String sessionId = req.getParameter("sessionId");
-			user = ssoAuthService.getAuth(sessionId);
-			EntityUtil.resetLazyLoaderManager(user, null);
-		} else {
-			user = new User();
-			user.setErrCode(General.GEN_003.getErrCode());
-			user.setErrDesc("not count get method.");
-		}
+		String sessionId = req.getParameter("sessionId");
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(user, User.class));
-		out.close();
+		User user = null;
+		user = ssoAuthService.getAuth(sessionId);
+		EntityUtil.resetLazyLoaderManager(user, null);
+
+		ServletUtil.print(rsp, user, User.class);
 	}
 
 	public void createClientSession(HttpServletRequest req,
 			HttpServletResponse rsp) throws IOException {
-		String method = req.getMethod();
 		StringResult sr = new StringResult();
-		if (method.equalsIgnoreCase("post")) {
-			sr.setValue(ssoAuthService.createClientSession());
-		} else {
-			sr.setErrCode(General.GEN_003.getErrCode());
-			sr.setErrDesc("not count get method.");
-		}
+		sr.setValue(ssoAuthService.createClientSession());
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(sr, StringResult.class));
-		out.close();
+		ServletUtil.print(rsp, sr, StringResult.class);
 	}
 
 	public void login(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
+		String account = req.getParameter("account");
+		String password = req.getParameter("password");
+		String sessionId = req.getParameter("sessionId");
+
 		StringResult sr = new StringResult();
-		if (method.equalsIgnoreCase("post")) {
-			String account = req.getParameter("account");
-			String password = req.getParameter("password");
-			String sessionId = req.getParameter("sessionId");
-			try {
-				sessionId = ssoAuthService.login(account, password, sessionId);
-			} catch (ServiceException e) {
-				sr.setErrCode(e.getErrCode());
-				sr.setErrDesc(e.getErrNotice());
-			}
+		try {
+			sessionId = ssoAuthService.login(account, password, sessionId);
 			sr.setValue(sessionId);
-		} else {
-			sr.setErrCode(General.GEN_003.getErrCode());
-			sr.setErrDesc("not count get method.");
+		} catch (ServiceException e) {
+			sr.setErrCode(e.getErrCode());
+			sr.setErrDesc(e.getErrNotice());
 		}
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(sr, StringResult.class));
-		out.flush();
-		out.close();
+		ServletUtil.print(rsp, sr, StringResult.class);
 	}
 
 	public void logout(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
-		Result sr = new Result();
-		if (method.equalsIgnoreCase("post")) {
-			String sessionId = req.getParameter("sessionId");
-			ssoAuthService.logout(sessionId);
-		} else {
-			sr.setErrCode(General.GEN_003.getErrCode());
-			sr.setErrDesc("not count get method.");
-		}
+		String sessionId = req.getParameter("sessionId");
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(sr, Result.class));
-		out.flush();
-		out.close();
+		Result sr = new Result();
+		ssoAuthService.logout(sessionId);
+
+		ServletUtil.print(rsp, sr, Result.class);
 	}
-	
+
 	public void getRongToken(HttpServletRequest req, HttpServletResponse rsp)
 			throws IOException {
-		String method = req.getMethod();
-		StringResult sr = new StringResult();
-		if (method.equalsIgnoreCase("post")) {
-			String sessionId = req.getParameter("sessionId");
-			String resAccountUri = req.getParameter("resAccountUri");
-			String value = ssoAuthService.getRongToken(sessionId, resAccountUri);
-			sr.setValue(value);
-		} else {
-			sr.setErrCode(General.GEN_003.getErrCode());
-			sr.setErrDesc("not count get method.");
-		}
+		String sessionId = req.getParameter("sessionId");
+		String resAccountUri = req.getParameter("resAccountUri");
 
-		rsp.setContentType("text/json;charset=UTF-8");
-		PrintWriter out = rsp.getWriter();
-		out.print(GsonUtil.toJson(sr, StringResult.class));
-		out.flush();
-		out.close();
+		StringResult sr = new StringResult();
+		String value = ssoAuthService.getRongToken(sessionId, resAccountUri);
+		sr.setValue(value);
+
+		ServletUtil.print(rsp, sr, StringResult.class);
 	}
 
 }
