@@ -133,6 +133,11 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 				cs = new ClientSession(sessionId);
 				cs.setCreationTime(dbCs.getCreationTime());
 				cs.setLastAccessedTime(dbCs.getLastAccessedTime());
+				User u = userService.getUserById(dbCs.getUserId());
+				if (u != null) {
+					cs.setAttribute(SESSION_USERID_KEY, u.getUserId());
+					cs.setAttribute(SESSION_USER_KEY, u);
+				}
 				// 加入缓存
 				ClientManager.getInstance().addSession(cs);
 			}
