@@ -37,7 +37,7 @@ public class UserServlet extends HttpServlet {
 		if (!req.getMethod().equalsIgnoreCase("post")) {
 			Result rt = new Result();
 			rt.setErrCode(General.GEN_003.getErrCode());
-			rt.setErrDesc("not count get method.");
+			rt.setErrDesc("HTTP method is not suported for this request.");
 			ServletUtil.print(rsp, rt, Result.class);
 			return;
 		}
