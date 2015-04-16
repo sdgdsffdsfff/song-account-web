@@ -92,6 +92,7 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 	@Override
 	public void logout(String sessionId) {
 		this.removeClientSession(sessionId);
+		clientSessionDao.delById(sessionId);
 	}
 
 	@Override

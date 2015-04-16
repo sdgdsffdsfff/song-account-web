@@ -50,7 +50,7 @@ public class SSOAuthServlet extends HttpServlet {
 		} else if (pathInfo.endsWith(CREATE_CLIENT_SESSION_JSON)) {
 			createClientSession(req, rsp);
 		} else if (pathInfo.endsWith(IS_CLIENT_SESSION_ID_JSON)) {
-			// getClientSessionId(req, rsp);
+			isClientSessionId(req, rsp);
 		} else if (pathInfo.endsWith(LOGIN_JSON)) {
 			login(req, rsp);
 		} else if (pathInfo.endsWith(LOGOUT_JSON)) {
@@ -64,6 +64,26 @@ public class SSOAuthServlet extends HttpServlet {
 
 	public void setSsoAuthService(SSOAuthService ssoAuthService) {
 		this.ssoAuthService = ssoAuthService;
+	}
+
+	private void isClientSessionId(HttpServletRequest req,
+			HttpServletResponse rsp) throws IOException {
+		String sessionId = req.getParameter("sessionId");
+
+		StringResult sr = new StringResult();
+		try {
+			boolean flag = ssoAuthService.isClientSessionId(sessionId);
+			if (flag) {
+				sr.setValue("1");
+			} else {
+				sr.setValue("0");
+			}
+		} catch (ServiceException e) {
+			sr.setErrCode(e.getErrCode());
+			sr.setErrDesc(e.getErrNotice());
+		}
+
+		ServletUtil.print(rsp, sr, StringResult.class);
 	}
 
 	public void getUser(HttpServletRequest req, HttpServletResponse rsp)
