@@ -60,7 +60,7 @@ public class AppInfoDaoImpl extends BasicDao<AppInfo> implements AppInfoDao {
 	}
 
 	@Override
-	public AppInfo queryById(Long appKey) {
+	public AppInfo queryById(String appKey) {
 		// TODO Auto-generated method stub
 		return null;
 	}

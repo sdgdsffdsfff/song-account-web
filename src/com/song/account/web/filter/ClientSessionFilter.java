@@ -44,8 +44,7 @@ public class ClientSessionFilter implements Filter {
 		}
 
 		// 更新SESSION的最近访问时间
-		SSOAuthService ssoaService = (SSOAuthService) Context.getContext(
-				request).getBean("ssoAuthService");
+		SSOAuthService ssoaService = (SSOAuthService) Context.getContext(request).getBean("ssoAuthService");
 		SSOAuth<User> ssoa = new SSOAuth<User>(request, response, ssoaService);
 		ssoa.updateSessionTime();
 		logger.info("sessionId: " + ssoa.getSessionId());

@@ -1,6 +1,7 @@
 package com.song.account.service.impl;
 
 import com.song.account.dao.AppInfoDao;
+import com.song.account.entity.AppInfo;
 import com.song.account.service.AppInfoService;
 
 /**
@@ -14,5 +15,10 @@ public class AppInfoServiceImpl implements AppInfoService {
 
 	public void setAppInfoDao(AppInfoDao appInfoDao) {
 		this.appInfoDao = appInfoDao;
+	}
+
+	@Override
+	public AppInfo getAppInfoById(String appKey) {
+		return appInfoDao.queryById(appKey);
 	}
 }

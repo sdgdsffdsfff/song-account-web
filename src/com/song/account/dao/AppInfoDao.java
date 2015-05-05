@@ -16,5 +16,5 @@ public interface AppInfoDao {
 	 * @param appKey
 	 * @return
 	 */
-	AppInfo queryById(Long appKey);
+	AppInfo queryById(String appKey);
 }
