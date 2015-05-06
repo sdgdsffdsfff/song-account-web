@@ -13,10 +13,10 @@
   <div class="win-990 header-box">
   <div class="header-logo"><a class="logo-link" href="<%=cm.getWebsiteAccountUri()%>" title="<s:text name="website.title.name"></s:text>"></a></div>
   <ul class="menu-list">
-  <li><a href="<%=cm.getWebsiteDapeiUri()%>/index.html;jsessionid=<%=session.getId()%>">首页</a></li>
+  <li><a href="<%=cm.getWebsiteDapeiUri()%>/index.html">首页</a></li>
   <li><a href="${request.contextPath}/member/userBasic.html" class="selected">账号管理</a></li>
-  <li><a href="<%=cm.getWebsiteDapeiUri()%>/my/devel.html;jsessionid=<%=session.getId()%>">我的衣美</a></li>
-  <li><a href="<%=cm.getWebsiteDapeiUri()%>/home.html;jsessionid=<%=session.getId()%>?u=${currUser.userId}">我的主页</a></li>
+  <li><a href="<%=cm.getWebsiteDapeiUri()%>/my/devel.html">我的衣美</a></li>
+  <li><a href="<%=cm.getWebsiteDapeiUri()%>/home.html?u=${currUser.userId}">我的主页</a></li>
   </ul>
   </div>
   </div>

@@ -96,7 +96,7 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 	}
 
 	@Override
-	public User getAuth(String sessionId) {
+	public User getAuth(String sessionId) throws ServiceException {
 		ClientSession session = this.getClientSession(sessionId);
 		User user = null;
 		if (session != null) {

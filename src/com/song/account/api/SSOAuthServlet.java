@@ -91,7 +91,13 @@ public class SSOAuthServlet extends HttpServlet {
 		String sessionId = req.getParameter("sessionId");
 
 		User user = null;
-		user = ssoAuthService.getAuth(sessionId);
+		try {
+			user = ssoAuthService.getAuth(sessionId);
+		} catch (ServiceException e) {
+			user = new User();
+			user.setErrCode(e.getErrCode());
+			user.setErrDesc(e.getErrNotice());
+		}
 		EntityUtil.resetLazyLoaderManager(user, null);
 
 		ServletUtil.print(rsp, user, User.class);

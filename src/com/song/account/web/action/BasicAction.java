@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.apache.log4j.Logger;
 import org.apache.struts2.ServletActionContext;
 
 import com.opensymphony.xwork2.ActionContext;
@@ -14,6 +15,8 @@ import com.song.account.service.UserService;
 import com.song.commons.web.SSOAuth;
 
 public abstract class BasicAction {
+	
+	private static final Logger logger = Logger.getLogger(BasicAction.class);
 
 	public UserService userService;
 
@@ -35,9 +38,14 @@ public abstract class BasicAction {
 			return currUser;
 		}
 
-		SSOAuth<User> ia = new SSOAuth<User>(getRequest(), getResponse(),
-				ssoAuthService);
-		currUser = ia.getCurrAuth();
+		HttpServletRequest req = getRequest();
+		HttpServletResponse res = getResponse();
+		SSOAuth<User> ia = new SSOAuth<User>(req, res, ssoAuthService);
+		try {
+			currUser = ia.getCurrAuth();
+		} catch (Exception e) {
+			logger.debug("获取在线用户", e);
+		}
 		return currUser;
 	}
 
