@@ -5,7 +5,8 @@ import com.song.commons.client.ClientSession;
 import com.song.commons.service.SSOAuthCallback;
 
 /**
- * 统一身份认证服务
+ * 统一身份认证服务<br/>
+ * （业务层对外提供的每一个接口都有可能会抛出业务异常）
  * 
  * @author songzigw
  *
@@ -33,9 +34,20 @@ public interface SSOAuthService extends SSOAuthCallback<User> {
 	 * @return
 	 */
 	public Long getUserId(String sessionId);
-	
+
+	/***
+	 * 创建客户端SESSION（客户端唯一标识）
+	 * 
+	 * @return
+	 */
 	public ClientSession createClientSessionFirst();
-	
+
+	/**
+	 * 根据SESSION_ID查询客户端标识
+	 * 
+	 * @param sessionId
+	 * @return
+	 */
 	public ClientSession getClientSession(String sessionId);
 
 }
