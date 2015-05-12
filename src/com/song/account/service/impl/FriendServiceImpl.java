@@ -114,13 +114,13 @@ public class FriendServiceImpl implements FriendService {
 			String reason) {
 		boolean flag = isFriend(fromUserId, toUserId);
 		if (flag) {
-			throw new ServiceException(ErrService.FriendE.ACC_102_002,
+			throw new ServiceException(ErrService.FriendE.ACC_302,
 					"彼此已经互为好友，无需发送好友请求！");
 		}
 
 		// 不能自己給自己发送好友请求
 		if (fromUserId == toUserId) {
-			throw new ServiceException(ErrService.FriendE.ACC_102_001,
+			throw new ServiceException(ErrService.FriendE.ACC_301,
 					"不能自己給自己发送好友请求");
 		}
 		FriendApply fa = friendApplyDao.queryBoth(fromUserId, toUserId);
@@ -141,7 +141,7 @@ public class FriendServiceImpl implements FriendService {
 		}
 
 		if (fa.getFromUserId().equals(toUserId)) {
-			throw new ServiceException(ErrService.FriendE.ACC_102_003,
+			throw new ServiceException(ErrService.FriendE.ACC_303,
 					"对方已经向你发出好友邀请，您无需发送。");
 		}
 
@@ -197,7 +197,7 @@ public class FriendServiceImpl implements FriendService {
 			long toUserId, String message) {
 		// 不能自己給自己发送信息
 		if (fromUserId == toUserId) {
-			throw new ServiceException(ErrService.Common.ACC_000_001,
+			throw new ServiceException(ErrService.Common.ACC_001,
 					"不能自己給自己发送信息");
 		}
 		FriendApply fa = this.getFriendApplyById(fayId);

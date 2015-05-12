@@ -16,7 +16,7 @@ public abstract class ErrService {
 	 */
 	public static enum Common implements ErrorInfo {
 		/** 不能自己给自己发信息 */
-		ACC_000_001("ACC_OOO_001");
+		ACC_001("ACC_001");
 
 		private final String errCode;
 
@@ -45,23 +45,23 @@ public abstract class ErrService {
 	 */
 	public static enum UserS implements ErrorInfo {
 		/** 账号重复错误码 */
-		ACC_100_001("ACC_100_001"),
+		ACC_101("ACC_101"),
 		/** 昵称重复错误码 */
-		ACC_100_002("ACC_100_002"),
+		ACC_102("ACC_102"),
 		/** 原始密码异常 */
-		ACC_100_003("ACC_100_003"),
+		ACC_103("ACC_103"),
 		/** 日期格式异常 */
-		ACC_100_004("ACC_100_004"),
+		ACC_104("ACC_104"),
 		/** 账号格式异常 */
-		ACC_100_005("ACC_100_005"),
+		ACC_105("ACC_105"),
 		/** 昵称格式异常 */
-		ACC_100_006("ACC_100_006"),
+		ACC_106("ACC_106"),
 		/** 密码格式异常 */
-		ACC_100_007("ACC_100_007"),
+		ACC_107("ACC_107"),
 		/** 平台绑定异常 */
-		ACC_100_008("ACC_100_008"),
+		ACC_108("ACC_108"),
 		/** 账号或密码错误 */
-		ACC_100_009("ACC_100_009");
+		ACC_109("ACC_109");
 
 		private final String errCode;
 
@@ -91,15 +91,15 @@ public abstract class ErrService {
 	
 	public static enum IdentifyCodeS implements ErrorInfo {
 		/** 验证码未生成异常 */
-		ACC_101_001("ACC_101_001"),
+		ACC_201("ACC_201"),
 		/** 验证码重复验证异常 */
-		ACC_101_002("ACC_101_002"),
+		ACC_202("ACC_202"),
 		/** 验证码验证时间异常 */
-		ACC_101_003("ACC_101_003"),
+		ACC_203("ACC_203"),
 		/** 验证码错误 */
-		ACC_101_004("ACC_101_004"),
+		ACC_204("ACC_204"),
 		/** 邮箱已经被激活 */
-		ACC_101_005("ACC_101_005");
+		ACC_205("ACC_205");
 
 		private final String errCode;
 
@@ -134,11 +134,11 @@ public abstract class ErrService {
 	
 	public static enum FriendE implements ErrorInfo {
 		/** 不能自己給自己发送好友请求 */
-		ACC_102_001("ACC_1O2_001"),
+		ACC_301("ACC_301"),
 		/** 彼此已经互为好友，无需发送好友请求！ */
-		ACC_102_002("ACC_102_002"),
+		ACC_302("ACC_302"),
 		/** 对方已经向你发出好友邀请，您无需发送。 */
-		ACC_102_003("ACC_102_003");
+		ACC_303("ACC_303");
 
 		private final String errCode;
 
@@ -162,7 +162,7 @@ public abstract class ErrService {
 	
 	public static enum SSOAuthE implements ErrorInfo {
 		/** 用户登入已经失效 */
-		ACC_103_001("ACC_1O3_001");
+		ACC_401("ACC_401");
 		
 		private final String errCode;
 

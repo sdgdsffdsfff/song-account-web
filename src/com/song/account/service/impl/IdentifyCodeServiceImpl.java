@@ -39,13 +39,13 @@ public class IdentifyCodeServiceImpl implements IdentifyCodeService {
 		Long icId = user.getEmIcId();
 		// 是否存在验证码，为获取验证码抛出异常
 		if (icId == null || icId <= 0) {
-			throw new ServiceException(IdentifyCodeS.ACC_101_001,
+			throw new ServiceException(IdentifyCodeS.ACC_201,
 					"链接还未生成，请发送新的验证链接。");
 		}
 		
 		IdentifyCode ic = identifyCodeDao.queryById(icId);
 		if (!ic.getVerifyState().equals(IdentifyCode.VerifyState.NO_VERIFY)) {
-			throw new ServiceException(IdentifyCodeS.ACC_101_002,
+			throw new ServiceException(IdentifyCodeS.ACC_202,
 					"链接已经访问，不可重复访问。");
 		}
 		// 验证码提交时间判断
@@ -53,20 +53,20 @@ public class IdentifyCodeServiceImpl implements IdentifyCodeService {
 		if (now.before(ic.getStartTime()) || now.after(ic.getEndTime())) {
 			// 修改验证结果
 			identifyCodeDao.updateVerifyResult(icId, IdentifyCode.VerifyState.FAILING, now);
-			throw new ServiceException(IdentifyCodeS.ACC_101_003,
+			throw new ServiceException(IdentifyCodeS.ACC_203,
 					"链接访问已经过期。");
 		}
 		// 验证码正确性判断
 		if (!ic.getCode().equals(code)) {
 			// 修改验证结果
 			identifyCodeDao.updateVerifyResult(icId, IdentifyCode.VerifyState.FAILING, now);
-			throw new ServiceException(IdentifyCodeS.ACC_101_004,
+			throw new ServiceException(IdentifyCodeS.ACC_204,
 					"邮箱验证码激活链接错误。");
 		}
 		if (userDao.queryByEnEmail(user.getEmail())!=null) {
 			// 修改验证结果
 			identifyCodeDao.updateVerifyResult(icId, IdentifyCode.VerifyState.FAILING, now);
-			throw new ServiceException(IdentifyCodeS.ACC_101_005,
+			throw new ServiceException(IdentifyCodeS.ACC_205,
 					"该邮箱已经有人激活，请更换邮箱。");
 		}
 		

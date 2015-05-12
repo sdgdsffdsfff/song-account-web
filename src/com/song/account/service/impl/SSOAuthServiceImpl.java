@@ -103,7 +103,7 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 			user = (User) session.getAttribute(SESSION_USER_KEY);
 		}
 		if (user == null) {
-			throw new ServiceException(ErrService.SSOAuthE.ACC_103_001,
+			throw new ServiceException(ErrService.SSOAuthE.ACC_401,
 					"用户登入失效");
 		}
 		return user;
@@ -117,7 +117,7 @@ public class SSOAuthServiceImpl implements SSOAuthService {
 			userId = (Long) session.getAttribute(SESSION_USERID_KEY);
 		}
 		if (userId == null) {
-			throw new ServiceException(ErrService.SSOAuthE.ACC_103_001,
+			throw new ServiceException(ErrService.SSOAuthE.ACC_401,
 					"用户登入失效");
 		}
 		return userId;
