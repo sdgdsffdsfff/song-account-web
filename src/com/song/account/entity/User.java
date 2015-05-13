@@ -254,23 +254,29 @@ public class User extends LazyLoadEntity {
 	}
 
 	public String getQqId() {
-		try {
-			JSONObject a = JSONObject.fromObject(eaddress);
-			return a.getString("qqId");
-		} catch (Exception e) {
+		if (!isJsonObjEadress()) {
 			return null;
 		}
+		JSONObject a = JSONObject.fromObject(eaddress);
+		return a.getString("qqId");
 	}
 
 	public String getWangwangId() {
-		try {
-			JSONObject a = JSONObject.fromObject(eaddress);
-			return a.getString("wangwangId");
-		} catch (Exception e) {
+		if (!isJsonObjEadress()) {
 			return null;
 		}
+		JSONObject a = JSONObject.fromObject(eaddress);
+		return a.getString("wangwangId");
 	}
-	
+
+	private boolean isJsonObjEadress() {
+		if (eaddress == null || eaddress.trim().equals("")
+				|| !eaddress.startsWith("{") || !eaddress.endsWith("}")) {
+			return false;
+		}
+		return true;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -305,7 +311,8 @@ public class User extends LazyLoadEntity {
 				+ email + ", enEmail=" + enEmail + ", emIcId=" + emIcId
 				+ ", birthdayYear=" + birthdayYear + ", birthdayMonth="
 				+ birthdayMonth + ", birthdayDay=" + birthdayDay + ", summary="
-				+ summary + ", eaddress=" + eaddress + ", rongToken=" + rongToken
-				+ "]";
+				+ summary + ", eaddress=" + eaddress + ", rongToken="
+				+ rongToken + "]";
 	}
+
 }
