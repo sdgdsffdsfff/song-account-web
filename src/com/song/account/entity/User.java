@@ -258,7 +258,13 @@ public class User extends LazyLoadEntity {
 			return null;
 		}
 		JSONObject a = JSONObject.fromObject(eaddress);
-		return a.getString("qqId");
+		String s = null;
+		try {
+			s = a.getString("qqId");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return s;
 	}
 
 	public String getWangwangId() {
@@ -266,7 +272,13 @@ public class User extends LazyLoadEntity {
 			return null;
 		}
 		JSONObject a = JSONObject.fromObject(eaddress);
-		return a.getString("wangwangId");
+		String s = null;
+		try {
+			s = a.getString("wangwangId");
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		return s;
 	}
 
 	private boolean isJsonObjEadress() {
