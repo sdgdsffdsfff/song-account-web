@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE struts PUBLIC "-//Apache Software Foundation//DTD Struts Configuration 2.1//EN" "http://struts.apache.org/dtds/struts-2.1.dtd">
+<struts>
+	<package name="account" extends="account-default" namespace="/">
+		<action name="index" class="indexAction" method="toIndexPage">
+			<result name="success" type="redirect">login.html</result>
+		</action>
+		<action name="showValidateCode" class="indexAction" method="showValidateCode"></action>
+		<action name="userIdOnline" class="loginAction" method="getUserIdOnline"/>
+		<action name="login" class="loginAction" method="toLoginPage">
+			<result name="success">/WEB-INF/jsp_account/login.jsp</result>
+			<result name="toUserBasicPage" type="redirect">/member/userBasic.html</result>
+		</action>
+		<action name="checkLogin" class="loginAction" method="checkLogin">
+			<result name="input">/WEB-INF/jsp_account/login.jsp</result>
+			<result name="success" type="redirect">/member/userBasic.html</result>
+		</action>
+		<action name="regSuccess" class="loginAction" method="regSuccess">
+			<result name="success">/WEB-INF/jsp_account/regSuccess.jsp</result>
+			<result name="toLoginPage">/WEB-INF/jsp_account/login.jsp</result>
+		</action>
+		<action name="register" class="loginAction" method="toRegisterPage">
+			<result name="success">/WEB-INF/jsp_account/register.jsp</result>
+			<result name="toUserBasicPage" type="redirect">/member/userBasic.html</result>
+		</action>
+		<action name="checkregister" class="loginAction" method="register">
+			<result name="error">/WEB-INF/jsp_account/errorInfo.jsp</result>
+			<result name="success" type="redirect">/regSuccess.html</result>
+		</action>
+		<action name="isExitAccount" class="loginAction" method="isExitAccount"/>
+		<action name="isExitNickName" class="loginAction" method="isExitNickName"/>
+		<action name="logout" class="loginAction" method="logout"/>
+		<action name="loginQq" class="loginAction" method="loginQq"></action>
+		<action name="loginQqCallback" class="loginAction" method="loginQqCallback">
+			<result name="success" type="redirect">/member/bindSynch.html</result>
+		</action>
+		<action name="loginSina" class="loginAction" method="loginSina"></action>
+		<action name="loginSinaCallback" class="loginAction" method="loginSinaCallback">
+			<result name="success" type="redirect">/member/bindSynch.html</result>
+		</action>
+	</package>
+	<package name="member" extends="account-default" namespace="/member">
+		<action name="verifyEmail" class="accountAction" method="verifyEmail">
+			<result name="success" type="redirect">email.html</result>
+		</action>
+		<action name="editUserEmail" class="accountAction" method="editUserEmail">
+			<result name="success" type="redirect">email.html?result=${result}</result>
+		</action>
+		<action name="editUserPhoto" class="accountAction" method="editUserPhoto"></action>
+		<action name="editUserPasw" class="accountAction" method="editUserPasw">
+			<result name="success" type="redirect">password.html</result>
+			<result name="input">/WEB-INF/jsp_account/member/userPaswEdit.jsp</result>
+		</action>
+		<action name="userBasic" class="accountAction" method="toUserBasicEdit">
+			<result name="success">/WEB-INF/jsp_account/member/userBasicEdit.jsp</result>
+		</action>
+		<action name="bindSynch" class="accountAction" method="toUserBindSynch">
+			<result name="success">/WEB-INF/jsp_account/member/userBindSynch.jsp</result>
+		</action>
+		<action name="email" class="accountAction" method="toUserEmailEdit">
+			<result name="success">/WEB-INF/jsp_account/member/userEmailEdit.jsp</result>
+		</action>
+		<action name="password" class="accountAction" method="toUserPaswEdit">
+			<result name="success">/WEB-INF/jsp_account/member/userPaswEdit.jsp</result>
+		</action>
+		<action name="photo" class="accountAction" method="toUserPhotoEdit">
+			<result name="success">/WEB-INF/jsp_account/member/userPhotoEdit.jsp</result>
+		</action>
+		<action name="tag" class="accountAction" method="toUserTagEdit">
+			<result name="success">/WEB-INF/jsp_account/member/userTagEdit.jsp</result>
+		</action>
+		<action name="editUserBasic" class="accountAction" method="editUserBasic">
+			<result name="error">/WEB-INF/jsp_account/errorInfo.jsp</result>
+			<result name="success" type="redirect">userBasic.html?result=${result}</result>
+		</action>
+		<action name="delBindSite" class="accountAction" method="delBindSite">
+			<result name="success" type="redirect">bindSynch.html</result>
+		</action>
+	</package>
+</struts>
